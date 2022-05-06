@@ -6,10 +6,12 @@ public class ItemView : MonoBehaviour
 {
     public int GUID;
     public IVector2 position;
-    private Item item;
-    public void Init(Item _item)
+
+    Item.Data data;
+    // 
+    public void Init(Item.Data _data)
     {
-        item=_item;
+       this.data=_data;
     }
     /*
      void Move()
