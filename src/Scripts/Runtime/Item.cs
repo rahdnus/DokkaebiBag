@@ -49,13 +49,13 @@ public class Item : MonoBehaviour
         }
         set{}
     }
+    public int _Count=1;
+
     public void OnTriggerEnter2D(Collider2D other)
     {
-
     }
     public void OnTriggerEnter(Collider other)
     {
-
     }
 }
 }
