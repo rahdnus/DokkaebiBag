@@ -14,7 +14,7 @@ public enum SubTag
 }
 public class Item : MonoBehaviour
 {
-    [SerializeField] Data data;
+    [SerializeField] Data data=new Item.Consumable("01","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
 /*    [SerializeField] private string id;
      public string _ID{
         get
@@ -65,6 +65,10 @@ public class Item : MonoBehaviour
         }
         set{}
     } */
+    void Awake()
+    {
+        data.UID=data.generateUID();
+    }
     public void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.gameObject.name);
@@ -107,30 +111,102 @@ public class Item : MonoBehaviour
     [System.Serializable]
     public class Data
     {
-        public string ID,description;
-        public Stacking stacking;
+        public string RID,UID,description;
         public MainTag mainTag;
         public SubTag subTag;
-        public int count=1;
-        public Data(string ID,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count)
+        public Data(string ID,string description,MainTag mainTag,SubTag subTag)
         {
             this.description=description;
-            this.stacking=stacking;
             this.mainTag=mainTag;
             this.subTag=subTag;
-            this.count=count;
-            this.ID=ID;
+            this.RID=ID;
         }
         public Data(Item.Data _data)
         {
             description=_data.description;
-            stacking=_data.stacking;
             mainTag=_data.mainTag;
             subTag=_data.subTag;
-            count=_data.count;
-            ID=_data.ID;
+            UID=_data.UID;
+            RID=_data.RID;
+        }
+        public string generateUID()
+        {
+            Random.InitState(10101);
+            return Random.Range(0,1000000).ToString();/* TEMP */
         }
       
+    }
+    [System.Serializable]
+    public class Stackable:Data
+    {
+        public Stacking stacking;
+        public int count=1;
+
+
+        public Stackable(string ID,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
+            base(ID,description,mainTag,subTag)
+        {
+            this.stacking=stacking;
+            this.count=count;
+        }
+         public Stackable(Item.Stackable _data):base(_data)
+        {
+            stacking=_data.stacking;
+            count=_data.count;
+        }
+    }
+     [System.Serializable]
+    public class NonStackable:Data
+    {
+        public NonStackable(string ID,string description,MainTag mainTag,SubTag subTag):
+            base(ID,description,mainTag,subTag)
+        {     }
+         public NonStackable(Item.NonStackable _data):base(_data)
+        {     }
+    }
+         [System.Serializable]
+    public class Weapon:NonStackable
+    {
+        public int damage;
+        public int lvl;
+        public Weapon(string ID,string description,MainTag mainTag,SubTag subTag,int damage,int lvl):
+            base(ID,description,mainTag,subTag)
+        {
+            this.damage=damage;
+            this.lvl=damage;
+        }
+         public Weapon(Item.Weapon _data):base(_data)
+        {
+            damage=_data.damage;
+            lvl=_data.damage;
+        }
+    }
+         [System.Serializable]
+    public class Armor:NonStackable
+    {
+        public int defense;
+        public int lvl;
+        public Armor(string ID,string description,MainTag mainTag,SubTag subTag,int defense,int lvl):
+            base(ID,description,mainTag,subTag)
+        {
+            this.defense=defense;
+            this.lvl=lvl;
+        }
+         public Armor(Item.Armor _data):base(_data)
+        {
+            defense=_data.defense;
+            lvl=_data.lvl;
+        }
+    }
+    public class Consumable:Stackable
+    {
+        public Consumable(string ID,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
+            base(ID,description,stacking,mainTag,subTag,count)
+        {
+        }
+         public Consumable(Item.Consumable _data):base(_data)
+        {
+        }
     }
 }
 
