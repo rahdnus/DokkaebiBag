@@ -17,14 +17,15 @@ public class ItemMapEditor : EditorWindow
     }
     void OnGUI()
     {
+        ItemMapper.asset=EditorGUILayout.ObjectField(ItemMapper.asset,typeof(TextAsset),false) as TextAsset;
         itemPrefab=EditorGUILayout.ObjectField(itemPrefab,typeof(GameObject),false) as GameObject;
         sprite=EditorGUILayout.ObjectField(sprite,typeof(Sprite),false) as Sprite;
 
         if(GUILayout.Button("Add"))
         {
             ItemMapper.Link(AssetDatabase.GetAssetPath(itemPrefab),AssetDatabase.GetAssetPath(itemPrefab));
-            Debug.Log(AssetDatabase.GetAssetPath(itemPrefab));
-            Debug.Log(AssetDatabase.GetAssetPath(sprite));
+            // Debug.Log(AssetDatabase.GetAssetPath(itemPrefab));
+            // Debug.Log(AssetDatabase.GetAssetPath(sprite));
         }
     }
 }
