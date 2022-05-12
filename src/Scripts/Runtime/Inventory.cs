@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace DokkaebiBag.Generic{
     [System.Serializable]
-public class Inventory 
+public class Inventory :MonoBehaviour
 {
-    [SerializeField]
-    private List<Item.Data> Items=new List<Item.Data>();
+    public List<Item.Data> Items=new List<Item.Data>();
     Item.Data temp1,temp2;
-    public void Init()
+    public void Start()
     {
         temp1=new Item.Consumable("01","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
         temp2=new Item.Consumable("02","Hello",Stacking.X1,MainTag.Weapon,SubTag.Gun,1);
@@ -18,7 +17,7 @@ public class Inventory
     public void Click()
     {/* TEMP */
         if(Input.GetMouseButtonDown(0))
-        Debug.Log((Items[1] as Item.Consumable ).count);
+        Debug.Log((Items[1] as Item.Consumable ).count); 
     }
     public void RightClick()
     {

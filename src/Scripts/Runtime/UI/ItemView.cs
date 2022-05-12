@@ -6,9 +6,7 @@ public class ItemView : MonoBehaviour
 {
     public int GUID;
     public IVector2 position;
-
     Item.Data data;
-    // 
     public void Init(Item.Data _data)
     {
        this.data=_data;
