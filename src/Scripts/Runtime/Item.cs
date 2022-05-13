@@ -15,6 +15,14 @@ public enum SubTag
 public class Item : MonoBehaviour
 {
     [SerializeField] Data data=new Item.Consumable("01","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
+
+    public Data myData{
+        get{
+            if(data==null)
+                Debug.Log("Data is Null");
+            return data;
+        }
+    }
 /*    [SerializeField] private string id;
      public string _ID{
         get
@@ -128,6 +136,11 @@ public class Item : MonoBehaviour
             subTag=_data.subTag;
             UID=_data.UID;
             RID=_data.RID;
+        }
+        public void AssignRID(string ID)
+        {
+            this.RID=ID;
+            
         }
         public string generateUID()
         {
