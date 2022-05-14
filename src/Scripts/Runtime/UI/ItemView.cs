@@ -1,23 +1,36 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using DokkaebiBag.Generic;
 
 namespace DokkaebiBag.UI{
-public class ItemView : MonoBehaviour
+public class ItemView : MonoBehaviour,IPointerEnterHandler,IPointerClickHandler
 {
     public int GUID;
     public IVector2 position;
     Item.Data data;
-    public void Init(Item.Data _data)
+
+    System.Action<Item.Data> onClick=null;
+    public void Init(Item.Data _data,System.Action<Item.Data> _onClick)
     {
        this.data=_data;
+       this.onClick=_onClick;
     }
-    /*
-     void Move()
-     void Display()->display description and info
-     void Discard()->Inventory.Remove()
-     void Use()
-    */
-}
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        onClick(this.data);
+    }
+        public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log(gameObject.name);    
+    }
+        /*
+void Move()
+void Display()->display description and info
+void Discard()->Inventory.Remove()
+void Use()
+*/
+    }
 }
 namespace DokkaebiBag.Generic{
     public class IVector2{

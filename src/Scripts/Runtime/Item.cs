@@ -14,7 +14,7 @@ public enum SubTag
 }
 public class Item : MonoBehaviour
 {
-    [SerializeField] Data data=new Item.Consumable("01","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
+    [SerializeField] Data data=new Item.Consumable("01","temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
 
     public Data myData{
         get{
@@ -119,14 +119,16 @@ public class Item : MonoBehaviour
     [System.Serializable]
     public class Data
     {
+        public string name;
         public string RID,UID,description;
         public MainTag mainTag;
         public SubTag subTag;
-        public Data(string ID,string description,MainTag mainTag,SubTag subTag)
+        public Data(string ID,string name,string description,MainTag mainTag,SubTag subTag)
         {
             this.description=description;
             this.mainTag=mainTag;
             this.subTag=subTag;
+            this.name=name;
             this.RID=ID;
         }
         public Data(Item.Data _data)
@@ -134,6 +136,7 @@ public class Item : MonoBehaviour
             description=_data.description;
             mainTag=_data.mainTag;
             subTag=_data.subTag;
+            name=_data.name;
             UID=_data.UID;
             RID=_data.RID;
         }
@@ -156,8 +159,8 @@ public class Item : MonoBehaviour
         public int count=1;
 
 
-        public Stackable(string ID,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
-            base(ID,description,mainTag,subTag)
+        public Stackable(string ID,string name,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
+            base(ID,name,description,mainTag,subTag)
         {
             this.stacking=stacking;
             this.count=count;
@@ -171,8 +174,8 @@ public class Item : MonoBehaviour
      [System.Serializable]
     public class NonStackable:Data
     {
-        public NonStackable(string ID,string description,MainTag mainTag,SubTag subTag):
-            base(ID,description,mainTag,subTag)
+        public NonStackable(string ID,string name,string description,MainTag mainTag,SubTag subTag):
+            base(ID,name,description,mainTag,subTag)
         {     }
          public NonStackable(Item.NonStackable _data):base(_data)
         {     }
@@ -182,8 +185,8 @@ public class Item : MonoBehaviour
     {
         public int damage;
         public int lvl;
-        public Weapon(string ID,string description,MainTag mainTag,SubTag subTag,int damage,int lvl):
-            base(ID,description,mainTag,subTag)
+        public Weapon(string ID,string name,string description,MainTag mainTag,SubTag subTag,int damage,int lvl):
+            base(ID,name,description,mainTag,subTag)
         {
             this.damage=damage;
             this.lvl=damage;
@@ -199,8 +202,8 @@ public class Item : MonoBehaviour
     {
         public int defense;
         public int lvl;
-        public Armor(string ID,string description,MainTag mainTag,SubTag subTag,int defense,int lvl):
-            base(ID,description,mainTag,subTag)
+        public Armor(string ID,string name,string description,MainTag mainTag,SubTag subTag,int defense,int lvl):
+            base(ID,name,description,mainTag,subTag)
         {
             this.defense=defense;
             this.lvl=lvl;
@@ -213,8 +216,8 @@ public class Item : MonoBehaviour
     }
     public class Consumable:Stackable
     {
-        public Consumable(string ID,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
-            base(ID,description,stacking,mainTag,subTag,count)
+        public Consumable(string ID,string name,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
+            base(ID,name,description,stacking,mainTag,subTag,count)
         {
         }
          public Consumable(Item.Consumable _data):base(_data)

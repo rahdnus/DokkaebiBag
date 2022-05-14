@@ -9,8 +9,8 @@ public class Inventory :MonoBehaviour
     Item.Data temp1,temp2;
     public void Start()
     {
-        temp1=new Item.Consumable("01","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
-        temp2=new Item.Consumable("02","Hello",Stacking.X1,MainTag.Weapon,SubTag.Gun,1);
+        temp1=new Item.Consumable("01","","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
+        temp2=new Item.Consumable("02","","Hello",Stacking.X1,MainTag.Weapon,SubTag.Gun,1);
         AddToInventory(temp2);
 
     }
