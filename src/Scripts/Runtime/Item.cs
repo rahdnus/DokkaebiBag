@@ -14,7 +14,9 @@ public enum SubTag
 }
 public class Item : MonoBehaviour
 {
-    [SerializeField] Data data=new Item.Consumable("01","temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
+    public string RID;
+    Data data;
+    // new Item.Consumable("01","temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
 
     public Data myData{
         get{
@@ -75,6 +77,7 @@ public class Item : MonoBehaviour
     } */
     void Awake()
     {
+        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
         data.UID=data.generateUID();
     }
     public void OnTriggerEnter2D(Collider2D other)

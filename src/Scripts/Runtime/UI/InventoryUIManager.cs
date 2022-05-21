@@ -1,29 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DokkaebiBag.Generic;
+using UnityEngine.AddressableAssets;
 
 namespace DokkaebiBag.UI{
 public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField]TextAsset asset;    
-    Dictionary<string,ItemAssetInfo> assetDictionary=new Dictionary<string, ItemAssetInfo>();
+    Dictionary<string,ItemAssetInfo> consumableAssetDictionary=new Dictionary<string, ItemAssetInfo>();
+ 
     void Start()
     {
         var list=JsonUtility.FromJson(asset.text,typeof(InfoList)) as InfoList;
         foreach(ItemAssetInfo info in list.assetInfoList)
         {
-            assetDictionary.Add(info.RID,info);
+            consumableAssetDictionary.Add(info.RID,info);
+            Debug.Log(info.RID);
         }
     }
     public ItemAssetInfo GetAsset(string RID)
     {
-        if(assetDictionary==null)
+        if(consumableAssetDictionary==null)
         {
             Debug.LogError("AssetDictionary is Empty!");
             return null;
         }
-        return assetDictionary[RID];
+        Debug.Log(RID);
+        return consumableAssetDictionary[RID];
     }
 }
 }
@@ -36,13 +39,15 @@ namespace DokkaebiBag.Generic
 [System.Serializable]public class ItemAssetInfo
 {
     public string RID;
-    public string prefabAddress;
-    public string spriteAddress;
-    public ItemAssetInfo(string RID,string prefab,string sprite)
+    public AssetReferenceGameObject objectreference;
+    public AssetReferenceSprite spritereference;
+
+    public ItemAssetInfo(string RID,AssetReferenceGameObject objectreference,AssetReferenceSprite spritereference)
     {
         this.RID=RID;
-        this.prefabAddress=prefab;
-        this.spriteAddress=sprite;
+        this.objectreference=objectreference;
+        this.spritereference=spritereference;
+
     }
 }
 

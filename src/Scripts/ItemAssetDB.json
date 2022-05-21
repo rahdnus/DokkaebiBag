@@ -1,0 +1,34 @@
+{
+    "assetInfoList": [
+        {
+            "RID": "0000",
+            "objectreference": {
+                "m_AssetGUID": "e082fd27b2e300d4f906b227fab6ed7a",
+                "m_SubObjectName": "",
+                "m_SubObjectType": "",
+                "m_EditorAssetChanged": false
+            },
+            "spritereference": {
+                "m_AssetGUID": "8326f1cae3bc1a145a35ff7d3985826b",
+                "m_SubObjectName": "",
+                "m_SubObjectType": "",
+                "m_EditorAssetChanged": false
+            }
+        },
+        {
+            "RID": "0001",
+            "objectreference": {
+                "m_AssetGUID": "74d90afd21b08b54ebeb76afcad3b417",
+                "m_SubObjectName": "",
+                "m_SubObjectType": "",
+                "m_EditorAssetChanged": false
+            },
+            "spritereference": {
+                "m_AssetGUID": "07352e91f98ef2048b5ce3add1751393",
+                "m_SubObjectName": "",
+                "m_SubObjectType": "",
+                "m_EditorAssetChanged": false
+            }
+        }
+    ]
+}

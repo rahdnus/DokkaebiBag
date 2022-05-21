@@ -11,7 +11,7 @@ public class Inventory :MonoBehaviour
     {
         temp1=new Item.Consumable("01","","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
         temp2=new Item.Consumable("02","","Hello",Stacking.X1,MainTag.Weapon,SubTag.Gun,1);
-        AddToInventory(temp2);
+        // AddToInventory(temp2);
 
     }
     public void Click()
