@@ -6,13 +6,18 @@ namespace DokkaebiBag.Generic{
 public class Inventory :MonoBehaviour
 {
     public List<Item.Data> Items=new List<Item.Data>();
+
+    System.Action<string> onAdd;
     Item.Data temp1,temp2;
     public void Start()
     {
         temp1=new Item.Consumable("01","","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
         temp2=new Item.Consumable("02","","Hello",Stacking.X1,MainTag.Weapon,SubTag.Gun,1);
         // AddToInventory(temp2);
-
+    }
+    public void Init(System.Action<string> _onAdd)
+    {
+        this.onAdd=_onAdd;
     }
     public void Click()
     {/* TEMP */
@@ -23,7 +28,7 @@ public class Inventory :MonoBehaviour
     {
         if(Input.GetMouseButtonDown(1))
         {
-            AddToInventory(temp1);
+            // AddToInventory(temp1);
         }
     }
     public void AddToInventory(Item.Data item)
@@ -36,7 +41,7 @@ public class Inventory :MonoBehaviour
                     Item.Stackable tempStack=data as Item.Stackable;
                     if(search.RID==data.RID && tempStack.count!=(int)tempStack.stacking)
                     {
-                        Debug.Log(tempStack.count+" "+(int)tempStack.stacking);
+                        // Debug.Log(tempStack.count+" "+(int)tempStack.stacking);
                         return true;
                     }
                     // Debug.LogError("DEFINE EVALUATOR FOR ADD");
@@ -44,25 +49,30 @@ public class Inventory :MonoBehaviour
                 return false;
             },
             (olditem)=>{
-               if(olditem is Item.Stackable)
-                {
+                
+                onAdd(olditem.RID);
+                
+                if(olditem is Item.Stackable)
+                { 
                     Item.Stackable temp1=item as Item.Stackable;
                     Item.Stackable temp2=olditem as Item.Stackable;
-                Debug.Log(temp1.count);
+                    //  Debug.Log(temp1.count);
                     int remainder=0;
                     if(temp1.count+temp2.count>(int)temp2.stacking)
                         remainder=(temp2.count+temp1.count)%(int)temp2.stacking;
                     temp2.count=(temp2.count+  temp1.count)-remainder;
-                Debug.Log(temp2.count);
+                    // Debug.Log(temp2.count);
 
-                Debug.Log(remainder);
+                    // Debug.Log(remainder);
 
                     if(remainder>0)
                     {
                         Item.Data newitem=null;
                         if(item is Item.Consumable)
                         {
+                            
                             newitem=new Item.Consumable(item as Item.Consumable);
+                            newitem.assignUID(Items.Count.ToString("0000"));
                             Items.Add(newitem);
                         }
                     }
@@ -73,16 +83,21 @@ public class Inventory :MonoBehaviour
                     if(item is Item.Consumable)
                     {
                         newitem=new Item.Consumable(item as Item.Consumable);
+                        newitem.assignUID(Items.Count.ToString("0000"));
                         Items.Add(newitem);
                     }
 
                 }
             },
             ()=>{
+
+                onAdd(item.RID);
+
                 Item.Data newitem=null;
                     if(item is Item.Consumable)
                     {
                         newitem=new Item.Consumable(item as Item.Consumable);
+                        newitem.assignUID(Items.Count.ToString("0000"));
                         Items.Add(newitem);
                     }
                     if(!(item is Item.Consumable))
@@ -93,21 +108,29 @@ public class Inventory :MonoBehaviour
         );
         // 
     }
-    public void RemoveFromInventory(Item.Data item,int count=1)
+    public void RemoveFromInventory(Item.Data item,int count=1,System.Action<Item.Data> onRemove=null)
     {
        FindItem(
            item,
              (search,data)=>{
                 if(search is Item.Stackable)
                 {
-                    Debug.LogError("DEFINE EVALUATOR FOR REMOVE");
+                    if(search.UID==data.UID)
+                    {
+                        return true;
+                    }
+                    return false;
+                    // Debug.LogError("DEFINE EVALUATOR FOR REMOVE");
                 }
-                return true;
+                return false;
              }
             ,
            (olditem)=>{
                if(olditem is Item.NonStackable)
-               {Items.Remove(olditem);  }
+               {
+                   Items.Remove(olditem);
+                   onRemove(olditem);  
+               }
                 else
                 {
                     Item.Stackable temp=olditem as Item.Stackable;
@@ -116,10 +139,14 @@ public class Inventory :MonoBehaviour
                         if(temp.count-count>0)
                         {
                             temp.count-=count;
+                            onRemove(temp);  
                             return;
                         }
+                        
+                        onRemove(temp);  
                         Items.Remove(temp);
                     }
+
                 }
             },
             ()=>{

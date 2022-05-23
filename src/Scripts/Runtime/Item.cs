@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace DokkaebiBag.Generic{
-public enum Stacking{X1=1, X16=16, X32=32, X64=64}
+public enum Stacking{X1=1,X16=16, X32=32, X64=64}
 public enum MainTag{Weapon,Armor,Accessory,Consumable}
 public enum SubTag
 {
@@ -23,6 +23,9 @@ public class Item : MonoBehaviour
             if(data==null)
                 Debug.Log("Data is Null");
             return data;
+        }
+        set{
+            data=new Data(value);
         }
     }
 /*    [SerializeField] private string id;
@@ -77,12 +80,12 @@ public class Item : MonoBehaviour
     } */
     void Awake()
     {
-        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
-        data.UID=data.generateUID();
+        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,8);
+        // data.UID=data.generateUID();
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
+        // Debug.Log(other.gameObject.name);
         if(other.gameObject.GetComponent<IPick>()!=null)
         {
             other.gameObject.GetComponent<IPick>().PickUp(this.data);
@@ -148,10 +151,9 @@ public class Item : MonoBehaviour
             this.RID=ID;
             
         }
-        public string generateUID()
+        public void assignUID(string num)
         {
-            Random.InitState(10101);
-            return Random.Range(0,1000000).ToString();/* TEMP */
+            this.UID=num;
         }
       
     }

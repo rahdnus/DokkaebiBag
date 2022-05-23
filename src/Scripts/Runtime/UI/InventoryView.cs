@@ -11,11 +11,12 @@ public class InventoryView : MonoBehaviour
     [SerializeField] string nameField,typefield;
     [SerializeField] TextMeshProUGUI nameFieldObject,typeFieldObject;
     [SerializeField]Inventory inventory;
-    [SerializeField]InventoryUIManager manager;
+    [SerializeField]InventoryUIManager invmanager;
 
     List<ItemView> Items=new List<ItemView>();
     void Start()
     {
+        inventory.Init(invmanager.LoadAssetInfo);
     }
     void Update()
     {
@@ -32,17 +33,13 @@ public class InventoryView : MonoBehaviour
         foreach(Item.Data item in inventory.Items)
         {
             GameObject itemObject=Instantiate(itemPrefab,inventoryPanel.transform) as GameObject;
-
-             Addressables.LoadAssetAsync<Sprite>(manager.GetAsset(item.RID).spritereference).Completed+=(op)=>{
-                if(op.Status==UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+            if(invmanager.isLoaded(item.RID))
+                itemObject.GetComponentInChildren<Image>().sprite=invmanager.GetAsset(item.RID).spritereference.Asset as Sprite;
+            else
                 {
-                    itemObject.GetComponentInChildren<Image>().sprite=op.Result;
+                    Debug.LogError(item.RID +"is not loaded!");
+                    Debug.Break();
                 }
-                else
-                {
-                    Debug.Log(op.OperationException);
-                }
-        };
 
             itemObject.GetComponent<ItemView>().Init(item,(data)=>{
                 updateDetailsPanel(data);
@@ -53,6 +50,8 @@ public class InventoryView : MonoBehaviour
     {
 
         // TODO Update Based on Type of Data
+        inventory.RemoveFromInventory(data,2,invmanager.InstantiateItem);
+        Debug.Log(data.UID);
         nameFieldObject.text=data.name;
         typeFieldObject.text=data.mainTag.ToString();
     }

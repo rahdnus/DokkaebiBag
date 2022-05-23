@@ -20,7 +20,7 @@ public class ItemView : MonoBehaviour,IPointerEnterHandler,IPointerClickHandler
     {
         onClick(this.data);
     }
-        public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log(gameObject.name);    
     }

@@ -8,6 +8,7 @@ public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField]TextAsset asset;    
     Dictionary<string,ItemAssetInfo> consumableAssetDictionary=new Dictionary<string, ItemAssetInfo>();
+    List<string> loadedAssetRID=new List<string>();
  
     void Start()
     {
@@ -25,8 +26,34 @@ public class InventoryUIManager : MonoBehaviour
             Debug.LogError("AssetDictionary is Empty!");
             return null;
         }
-        Debug.Log(RID);
         return consumableAssetDictionary[RID];
+    }
+    public bool isLoaded(string RID)
+    {
+        if(loadedAssetRID.Contains(RID))
+            return true;    
+        return false;
+    }
+    public void LoadAssetInfo(string RID)
+    {
+        if(loadedAssetRID.Contains(RID))
+            return;
+
+        loadedAssetRID.Add(RID);
+        GetAsset(RID).objectreference.LoadAssetAsync();
+        GetAsset(RID).spritereference.LoadAssetAsync();
+    }
+    public void InstantiateItem(Item.Data data)
+    {
+        if(loadedAssetRID.Contains(data.RID))
+            {
+                var item=Instantiate(consumableAssetDictionary[data.RID].objectreference.Asset,Vector3.zero,Quaternion.identity) as GameObject;
+                item.GetComponent<Item>().myData=data;
+            }
+        else
+        {
+            Debug.LogError(data.RID+" has not been loaded");
+        }
     }
 }
 }
