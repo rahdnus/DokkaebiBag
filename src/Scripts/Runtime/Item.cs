@@ -15,6 +15,7 @@ public enum SubTag
 public class Item : MonoBehaviour
 {
     public string RID;
+    public int count=8;
     Data data;
     // new Item.Consumable("01","temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
 
@@ -24,9 +25,7 @@ public class Item : MonoBehaviour
                 Debug.Log("Data is Null");
             return data;
         }
-        set{
-            data=new Data(value);
-        }
+        
     }
 /*    [SerializeField] private string id;
      public string _ID{
@@ -78,9 +77,9 @@ public class Item : MonoBehaviour
         }
         set{}
     } */
-    void Awake()
+    public void Init()
     {
-        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,8);
+        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,count);
         // data.UID=data.generateUID();
     }
     public void OnTriggerEnter2D(Collider2D other)
@@ -169,11 +168,15 @@ public class Item : MonoBehaviour
         {
             this.stacking=stacking;
             this.count=count;
+            Debug.Log(count);
+
         }
          public Stackable(Item.Stackable _data):base(_data)
         {
             stacking=_data.stacking;
             count=_data.count;
+            Debug.Log(count);
+
         }
     }
      [System.Serializable]

@@ -43,16 +43,17 @@ public class InventoryUIManager : MonoBehaviour
         GetAsset(RID).objectreference.LoadAssetAsync();
         GetAsset(RID).spritereference.LoadAssetAsync();
     }
-    public void InstantiateItem(Item.Data data)
+    public void InstantiateItem(string RID,int count=1)
     {
-        if(loadedAssetRID.Contains(data.RID))
+        if(loadedAssetRID.Contains(RID))
             {
-                var item=Instantiate(consumableAssetDictionary[data.RID].objectreference.Asset,Vector3.zero,Quaternion.identity) as GameObject;
-                item.GetComponent<Item>().myData=data;
+                var item=Instantiate(consumableAssetDictionary[RID].objectreference.Asset,Vector3.zero,Quaternion.identity) as GameObject;
+                item.GetComponent<Item>().count=count;
+                item.GetComponent<Item>().Init();
             }
         else
         {
-            Debug.LogError(data.RID+" has not been loaded");
+            Debug.LogError(RID+" has not been loaded");
         }
     }
 }
