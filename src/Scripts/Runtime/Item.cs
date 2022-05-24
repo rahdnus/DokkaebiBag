@@ -82,6 +82,13 @@ public class Item : MonoBehaviour
         data=new Item.Consumable(RID,"temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,count);
         // data.UID=data.generateUID();
     }
+    public void setTrigger(bool state)
+    {
+        GetComponent<Collider2D>().enabled=state;
+    }
+    
+    
+    
     public void OnTriggerEnter2D(Collider2D other)
     {
         // Debug.Log(other.gameObject.name);

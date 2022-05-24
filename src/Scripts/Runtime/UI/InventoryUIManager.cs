@@ -26,6 +26,7 @@ public class InventoryUIManager : MonoBehaviour
             Debug.LogError("AssetDictionary is Empty!");
             return null;
         }
+        Debug.Log(RID);
         return consumableAssetDictionary[RID];
     }
     public bool isLoaded(string RID)
@@ -43,13 +44,17 @@ public class InventoryUIManager : MonoBehaviour
         GetAsset(RID).objectreference.LoadAssetAsync();
         GetAsset(RID).spritereference.LoadAssetAsync();
     }
-    public void InstantiateItem(string RID,int count=1)
+    public void InstantiateItem(string RID,int count=1,Vector3 position=default(Vector3))
     {
         if(loadedAssetRID.Contains(RID))
             {
-                var item=Instantiate(consumableAssetDictionary[RID].objectreference.Asset,Vector3.zero,Quaternion.identity) as GameObject;
+                var item=Instantiate(consumableAssetDictionary[RID].objectreference.Asset,position,Quaternion.identity) as GameObject;
+                item.GetComponent<Item>().setTrigger(false);
+                StartCoroutine(Utils.Utils.delay(1f,item.GetComponent<Item>().setTrigger));
                 item.GetComponent<Item>().count=count;
+                item.GetComponent<Item>().RID=RID;
                 item.GetComponent<Item>().Init();
+                
             }
         else
         {

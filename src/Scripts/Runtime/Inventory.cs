@@ -108,7 +108,7 @@ public class Inventory :MonoBehaviour
         );
         // 
     }
-    public void RemoveFromInventory(Item.Data item,int count=1,System.Action<string,int> onRemove=null)
+    public void RemoveFromInventory(Item.Data item,int count=1,System.Action<string,int,Vector3> onRemove=null)
     {
        FindItem(
            item,
@@ -129,7 +129,7 @@ public class Inventory :MonoBehaviour
                if(olditem is Item.NonStackable)
                {
                    Items.Remove(olditem);
-                   onRemove(olditem.RID,1);  
+                   onRemove(olditem.RID,1,transform.position);  
                }
                 else
                 {
@@ -141,11 +141,11 @@ public class Inventory :MonoBehaviour
                             temp.count-=count;
 
                             Debug.Log(temp.count);
-                            onRemove(temp.RID,count);  
+                            onRemove(temp.RID,count,transform.position);  
                             return;
                         }
                         
-                        onRemove(temp.RID,count);  
+                        onRemove(temp.RID,count,transform.position);  
                         Items.Remove(temp);
                     }
 
