@@ -49,10 +49,13 @@ public class InventoryUIManager : MonoBehaviour
         if(loadedAssetRID.Contains(RID))
             {
                 var item=Instantiate(consumableAssetDictionary[RID].objectreference.Asset,position,Quaternion.identity) as GameObject;
+                
                 item.GetComponent<Item>().setTrigger(false);
                 StartCoroutine(Utils.Utils.delay(1f,item.GetComponent<Item>().setTrigger));
+                
                 item.GetComponent<Item>().count=count;
                 item.GetComponent<Item>().RID=RID;
+                
                 item.GetComponent<Item>().Init();
                 
             }

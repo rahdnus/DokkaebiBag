@@ -175,14 +175,14 @@ public class Item : MonoBehaviour
         {
             this.stacking=stacking;
             this.count=count;
-            Debug.Log(count);
+            // Debug.Log(count);
 
         }
          public Stackable(Item.Stackable _data):base(_data)
         {
             stacking=_data.stacking;
             count=_data.count;
-            Debug.Log(count);
+                // Debug.Log(count);
 
         }
     }
