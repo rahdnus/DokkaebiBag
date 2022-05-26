@@ -30,8 +30,21 @@ public class Utils
             if(flag==false)
                 leafClasses.Add(type);
         }
-        
         return leafClasses.ToArray();
+    }
+    public static FieldInfo[] GetAllFieldofType(Type Datatype,Type type)
+    {
+        List<FieldInfo> fields=new List<FieldInfo>();
+        
+       foreach(FieldInfo field in  Datatype.GetFields().Where(field=>field.FieldType==type))
+       {
+           fields.Add(field);
+       }
+        return fields.ToArray();
+    }
+    public static FieldInfo getFieldInfo(Type type,string propertyName)
+    {
+        return typeof(DokkaebiBag.Generic.Item.Weapon).GetField(propertyName);
     }
     public static FieldInfo[] getAllFieldsof(System.Type type)
     {

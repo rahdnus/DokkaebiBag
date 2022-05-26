@@ -12,8 +12,8 @@ public class Inventory :MonoBehaviour
     public void Start()
     {
         Utils.Utils.getAllLeafTypesof<Item.Data>();
-        temp1=new Item.Consumable("01","","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,4);
-        temp2=new Item.Consumable("02","","Hello",Stacking.X1,MainTag.Weapon,SubTag.Gun,1);
+        temp1=new Item.Consumable("01","","Hi",Stacking.X16,/* MainTag.Weapon,T */Tag.Gun,4);
+        temp2=new Item.Consumable("02","","Hello",Stacking.X1,/* MainTag.Weapon, */Tag.Gun,1);
         // AddToInventory(temp2);
     }
     public void Init(System.Action<string> _onAdd)

@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace DokkaebiBag.Generic{
 public enum Stacking{X1=1,X16=16, X32=32, X64=64}
-public enum MainTag{Weapon,Armor,Accessory,Consumable}
-public enum SubTag
+// public enum MainTag{Weapon,Armor,Accessory,Consumable}
+public enum Tag
 {
     Sword,Shield,Gun,Bow,
     Helmet,Torso,Grieves,Gloves,
@@ -79,7 +79,7 @@ public class Item : MonoBehaviour
     } */
     public void Init()
     {
-        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16,MainTag.Weapon,SubTag.Gun,count);
+        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16/* ,MainTag.Weapon, */,Tag.Gun,count);
         // data.UID=data.generateUID();
     }
     public void setTrigger(bool state)
@@ -133,21 +133,21 @@ public class Item : MonoBehaviour
     {
         public string name;
         public string RID,UID,description;
-        public MainTag mainTag;
-        public SubTag subTag;
-        public Data(string ID,string name,string description,MainTag mainTag,SubTag subTag)
+        // public MainTag mainTag;
+        public Tag tag;
+        public Data(string ID,string name,string description,/* MainTag mainTag, */Tag tag)
         {
             this.description=description;
-            this.mainTag=mainTag;
-            this.subTag=subTag;
+            // this.mainTag=mainTag;
+            this.tag=tag;
             this.name=name;
             this.RID=ID;
         }
         public Data(Item.Data _data)
         {
             description=_data.description;
-            mainTag=_data.mainTag;
-            subTag=_data.subTag;
+            // mainTag=_data.mainTag;
+            tag=_data.tag;
             name=_data.name;
             UID=_data.UID;
             RID=_data.RID;
@@ -170,8 +170,8 @@ public class Item : MonoBehaviour
         public int count=1;
 
 
-        public Stackable(string ID,string name,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
-            base(ID,name,description,mainTag,subTag)
+        public Stackable(string ID,string name,string description,Stacking stacking,/* MainTag mainTag, */Tag tag,int count):
+            base(ID,name,description/*, mainTag */,tag)
         {
             this.stacking=stacking;
             this.count=count;
@@ -189,8 +189,8 @@ public class Item : MonoBehaviour
      [System.Serializable]
     public class NonStackable:Data
     {
-        public NonStackable(string ID,string name,string description,MainTag mainTag,SubTag subTag):
-            base(ID,name,description,mainTag,subTag)
+        public NonStackable(string ID,string name,string description,/* MainTag mainTag, */Tag tag):
+            base(ID,name,description,/* mainTag, */tag)
         {     }
          public NonStackable(Item.NonStackable _data):base(_data)
         {     }
@@ -200,8 +200,8 @@ public class Item : MonoBehaviour
     {
         public int damage;
         public int lvl;
-        public Weapon(string ID,string name,string description,MainTag mainTag,SubTag subTag,int damage,int lvl):
-            base(ID,name,description,mainTag,subTag)
+        public Weapon(string ID,string name,string description,/* MainTag mainTag, */Tag tag,int damage,int lvl):
+            base(ID,name,description,/* mainTag, */tag)
         {
             this.damage=damage;
             this.lvl=damage;
@@ -217,8 +217,8 @@ public class Item : MonoBehaviour
     {
         public int defense;
         public int lvl;
-        public Armor(string ID,string name,string description,MainTag mainTag,SubTag subTag,int defense,int lvl):
-            base(ID,name,description,mainTag,subTag)
+        public Armor(string ID,string name,string description,/* MainTag mainTag, */Tag tag,int defense,int lvl):
+            base(ID,name,description,/* mainTag, */tag)
         {
             this.defense=defense;
             this.lvl=lvl;
@@ -231,8 +231,8 @@ public class Item : MonoBehaviour
     }
     public class Consumable:Stackable
     {
-        public Consumable(string ID,string name,string description,Stacking stacking,MainTag mainTag,SubTag subTag,int count):
-            base(ID,name,description,stacking,mainTag,subTag,count)
+        public Consumable(string ID,string name,string description,Stacking stacking,/* MainTag mainTag, */Tag tag,int count):
+            base(ID,name,description,stacking,/* mainTag, */tag,count)
         {
         }
          public Consumable(Item.Consumable _data):base(_data)

@@ -53,7 +53,7 @@ public class InventoryView : MonoBehaviour
         inventory.RemoveFromInventory(data,2,invmanager.InstantiateItem);
         Debug.Log(data.UID);
         nameFieldObject.text=data.name;
-        typeFieldObject.text=data.mainTag.ToString();
+        typeFieldObject.text=data.tag.ToString();
     }
     /*
      UseItem(int ID)
