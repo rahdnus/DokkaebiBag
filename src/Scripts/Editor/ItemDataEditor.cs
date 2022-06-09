@@ -116,6 +116,7 @@ namespace DokkaebiBag.Editor
         {
             case 0:
                 GUILayout.BeginArea(new Rect(125,5,position.width-125,position.height));
+                
                 selectedtype=EditorGUILayout.Popup(selectedtype,ItemTypeoptions);
                 var fieldsinfo=Utils.Utils.getAllFieldsof(types[selectedtype]);
                 for(int i=0;i<fieldsinfo.Length;i++)

@@ -3,30 +3,45 @@
         {
             "RID": "0000",
             "objectreference": {
-                "m_AssetGUID": "e082fd27b2e300d4f906b227fab6ed7a",
+                "m_AssetGUID": "71eb53186dd0cd445994dda7c58dff5c",
                 "m_SubObjectName": "",
                 "m_SubObjectType": "",
                 "m_EditorAssetChanged": false
             },
             "spritereference": {
-                "m_AssetGUID": "8326f1cae3bc1a145a35ff7d3985826b",
+                "m_AssetGUID": "bf6c80bdaf556904f9c95c48d4287e34",
                 "m_SubObjectName": "",
-                "m_SubObjectType": "",
+                "m_SubObjectType": "UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "m_EditorAssetChanged": false
             }
         },
         {
             "RID": "0001",
             "objectreference": {
-                "m_AssetGUID": "74d90afd21b08b54ebeb76afcad3b417",
+                "m_AssetGUID": "a7454258a44857b48b588d5f136ac1bd",
                 "m_SubObjectName": "",
                 "m_SubObjectType": "",
                 "m_EditorAssetChanged": false
             },
             "spritereference": {
-                "m_AssetGUID": "07352e91f98ef2048b5ce3add1751393",
+                "m_AssetGUID": "d237cf95d3149fc479ad98ac3f2ad598",
+                "m_SubObjectName": "",
+                "m_SubObjectType": "UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "m_EditorAssetChanged": false
+            }
+        },
+        {
+            "RID": "0002",
+            "objectreference": {
+                "m_AssetGUID": "297f2427e7dd6494db2240c1f3e0021f",
                 "m_SubObjectName": "",
                 "m_SubObjectType": "",
+                "m_EditorAssetChanged": false
+            },
+            "spritereference": {
+                "m_AssetGUID": "14543f4b06489b3449d1d4a09b3717cd",
+                "m_SubObjectName": "",
+                "m_SubObjectType": "UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "m_EditorAssetChanged": false
             }
         }

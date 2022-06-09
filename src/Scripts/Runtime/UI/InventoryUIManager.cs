@@ -16,7 +16,6 @@ public class InventoryUIManager : MonoBehaviour
         foreach(ItemAssetInfo info in list.assetInfoList)
         {
             consumableAssetDictionary.Add(info.RID,info);
-            Debug.Log(info.RID);
         }
     }
     public ItemAssetInfo GetAsset(string RID)

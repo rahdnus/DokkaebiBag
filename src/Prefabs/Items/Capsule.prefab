@@ -95,13 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14302cfeccf09345b10a72bb74ced02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    name: cap
-    RID: 001
-    UID: 
-    description: Hi
-    mainTag: 0
-    subTag: 2
+  RID: 0000
+  count: 8
 --- !u!70 &-8990044512906082716
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

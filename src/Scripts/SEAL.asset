@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: SEAL
   m_EditorClassIdentifier: 
   Objectreference:
-    m_AssetGUID: 74d90afd21b08b54ebeb76afcad3b417
+    m_AssetGUID: 297f2427e7dd6494db2240c1f3e0021f
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   Spritereference:
-    m_AssetGUID: 07352e91f98ef2048b5ce3add1751393
+    m_AssetGUID: 14543f4b06489b3449d1d4a09b3717cd
     m_SubObjectName: 
-    m_SubObjectType: 
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
     m_EditorAssetChanged: 0

@@ -9,16 +9,16 @@ public class ItemView : MonoBehaviour,IPointerEnterHandler,IPointerClickHandler
     public IVector2 position;
     Item.Data data;
 
-    System.Action<Item.Data> onClick=null;
+    System.Action<Item.Data> onSelect=null;
     public void Init(Item.Data _data,System.Action<Item.Data> _onClick)
     {
        this.data=_data;
-       this.onClick=_onClick;
+       this.onSelect=_onClick;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        onClick(this.data);
+        onSelect(this.data);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

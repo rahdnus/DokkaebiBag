@@ -33,7 +33,7 @@ public class InventoryView : MonoBehaviour
         foreach(Item.Data item in inventory.Items)
         {
             GameObject itemObject=Instantiate(itemPrefab,inventoryPanel.transform) as GameObject;
-            if(invmanager.isLoaded(item.RID))
+                if(invmanager.isLoaded(item.RID))
                 itemObject.GetComponentInChildren<Image>().sprite=invmanager.GetAsset(item.RID).spritereference.Asset as Sprite;
             else
                 {
