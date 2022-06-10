@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DokkaebiBag.Generic;
-
 namespace DokkaebiBag.UI{
 public class ItemView : MonoBehaviour,IPointerEnterHandler,IPointerClickHandler
 {
     public int GUID;
     public IVector2 position;
     Item.Data data;
+    bool status=false;
 
-    System.Action<Item.Data> onSelect=null;
+    System.Action<Item.Data> onSelect=null,onDeselect=null;
     public void Init(Item.Data _data,System.Action<Item.Data> _onClick)
     {
        this.data=_data;
@@ -18,18 +18,21 @@ public class ItemView : MonoBehaviour,IPointerEnterHandler,IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        onSelect(this.data);
+        if (status == false)
+        {
+            onSelect(this.data);
+            status = true;
+        }
+        else
+        {
+            onDeselect(this.data);
+            status = true;
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log(gameObject.name);    
     }
-        /*
-void Move()
-void Display()->display description and info
-void Discard()->Inventory.Remove()
-void Use()
-*/
     }
 }
 namespace DokkaebiBag.Generic{

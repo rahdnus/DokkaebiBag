@@ -25,6 +25,7 @@ namespace DokkaebiBag.Editor
      int selectedtype;
     static Item.Data data;
     int tagselect,stackingselect;
+
     // Dictionary<Type,Action<Item.Data>> GUICreator=new Dictionary<Type, Action<Item.Data>>{
     //     {
     //     typeof(Int32),(data)=>{
@@ -58,6 +59,7 @@ namespace DokkaebiBag.Editor
     //     }
     //     }
     // };
+    
     [MenuItem("Editor/Itemdata")]
     public static void ShowWindow()
     {
@@ -88,7 +90,6 @@ namespace DokkaebiBag.Editor
                 }
                 for(int j=0;j<intfieldsinfo[i].Length;j++)
                 {
-
                     // Debug.Log(types[i]+" "+intfieldsinfo[i][j].Name);
                 }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DokkaebiBag.Generic{
@@ -25,7 +23,6 @@ public class Item : MonoBehaviour
                 Debug.Log("Data is Null");
             return data;
         }
-        
     }
 /*    [SerializeField] private string id;
      public string _ID{
@@ -79,16 +76,13 @@ public class Item : MonoBehaviour
     } */
     public void Init()
     {
-        data=new Item.Consumable(RID,"temp","Hi",Stacking.X16/* ,MainTag.Weapon, */,Tag.Gun,count);
+        data=new Consumable(RID,"temp","Hi",Stacking.X16,Tag.Gun,count);
         // data.UID=data.generateUID();
     }
     public void setTrigger(bool state)
     {
         GetComponent<Collider2D>().enabled=state;
     }
-    
-    
-    
     public void OnTriggerEnter2D(Collider2D other)
     {
         // Debug.Log(other.gameObject.name);
@@ -133,12 +127,10 @@ public class Item : MonoBehaviour
     {
         public string name;
         public string RID,UID,description;
-        // public MainTag mainTag;
         public Tag tag;
-        public Data(string ID,string name,string description,/* MainTag mainTag, */Tag tag)
+        public Data(string ID,string name,string description,Tag tag)
         {
             this.description=description;
-            // this.mainTag=mainTag;
             this.tag=tag;
             this.name=name;
             this.RID=ID;
@@ -146,16 +138,14 @@ public class Item : MonoBehaviour
         public Data(Item.Data _data)
         {
             description=_data.description;
-            // mainTag=_data.mainTag;
             tag=_data.tag;
             name=_data.name;
             UID=_data.UID;
             RID=_data.RID;
         }
-        public void AssignRID(string ID)
+        public void assignRID(string ID)
         {
             this.RID=ID;
-            
         }
         public void assignUID(string num)
         {
@@ -175,14 +165,12 @@ public class Item : MonoBehaviour
         {
             this.stacking=stacking;
             this.count=count;
-            // Debug.Log(count);
 
         }
          public Stackable(Item.Stackable _data):base(_data)
         {
             stacking=_data.stacking;
             count=_data.count;
-                // Debug.Log(count);
 
         }
     }
@@ -217,8 +205,7 @@ public class Item : MonoBehaviour
     {
         public int defense;
         public int lvl;
-        public Armor(string ID,string name,string description,/* MainTag mainTag, */Tag tag,int defense,int lvl):
-            base(ID,name,description,/* mainTag, */tag)
+        public Armor(string ID,string name,string description,/* MainTag mainTag, */Tag tag,int defense,int lvl):base(ID,name,description,/* mainTag, */tag)
         {
             this.defense=defense;
             this.lvl=lvl;
@@ -231,13 +218,8 @@ public class Item : MonoBehaviour
     }
     public class Consumable:Stackable
     {
-        public Consumable(string ID,string name,string description,Stacking stacking,/* MainTag mainTag, */Tag tag,int count):
-            base(ID,name,description,stacking,/* mainTag, */tag,count)
-        {
-        }
-         public Consumable(Item.Consumable _data):base(_data)
-        {
-        }
+        public Consumable(string ID,string name,string description,Stacking stacking,Tag tag,int count):base(ID,name,description,stacking,tag,count){}
+        public Consumable(Item.Consumable _data):base(_data){}
     }
 }
 

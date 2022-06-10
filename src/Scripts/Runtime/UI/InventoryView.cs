@@ -1,9 +1,9 @@
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.AddressableAssets;
 using System.Collections.Generic;
 using UnityEngine;
 using DokkaebiBag.Generic;
+
 namespace DokkaebiBag.UI{
 public class InventoryView : MonoBehaviour
 {
@@ -21,9 +21,9 @@ public class InventoryView : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.A))
-            refreshInventoryView();
+            RefreshInventoryView();
     }
-    public void refreshInventoryView()
+    public void RefreshInventoryView()
     {
         foreach(Transform childitem in inventoryPanel.transform)
         {
@@ -42,14 +42,13 @@ public class InventoryView : MonoBehaviour
                 }
 
             itemObject.GetComponent<ItemView>().Init(item,(data)=>{
-                updateDetailsPanel(data);
+                UpdateDetailsPanel(data);
             });
         }
     }
-    public void updateDetailsPanel(Item.Data data)
+    public void UpdateDetailsPanel(Item.Data data)
     {
-
-        // TODO Update Based on Type of Data
+        // TODO Update Based on Type of Data 
         inventory.RemoveFromInventory(data,2,invmanager.InstantiateItem);
         Debug.Log(data.UID);
         nameFieldObject.text=data.name;

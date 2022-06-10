@@ -8,13 +8,9 @@ public class Inventory :MonoBehaviour
     public List<Item.Data> Items=new List<Item.Data>();
 
     System.Action<string> onAdd;
-    Item.Data temp1,temp2;
     public void Start()
     {
         Utils.Utils.getAllLeafTypesof<Item.Data>();
-        temp1=new Item.Consumable("01","","Hi",Stacking.X16,/* MainTag.Weapon,T */Tag.Gun,4);
-        temp2=new Item.Consumable("02","","Hello",Stacking.X1,/* MainTag.Weapon, */Tag.Gun,1);
-        // AddToInventory(temp2);
     }
     public void Init(System.Action<string> _onAdd)
     {
@@ -42,10 +38,8 @@ public class Inventory :MonoBehaviour
                     Item.Stackable tempStack=data as Item.Stackable;
                     if(search.RID==data.RID && tempStack.count!=(int)tempStack.stacking)
                     {
-                        // Debug.Log(tempStack.count+" "+(int)tempStack.stacking);
                         return true;
                     }
-                    // Debug.LogError("DEFINE EVALUATOR FOR ADD");
                 }
                 return false;
             },
@@ -55,39 +49,44 @@ public class Inventory :MonoBehaviour
                 
                 if(olditem is Item.Stackable)
                 { 
-                    Item.Stackable temp1=item as Item.Stackable;
-                    Item.Stackable temp2=olditem as Item.Stackable;
-                    //  Debug.Log(temp1.count);
+                    Item.Stackable stack_item=item as Item.Stackable;
+                    Item.Stackable stack_olditem=olditem as Item.Stackable;
+
                     int remainder=0;
-                    if(temp1.count+temp2.count>(int)temp2.stacking)
-                        remainder=(temp2.count+temp1.count)%(int)temp2.stacking;
-                    temp2.count=(temp2.count+  temp1.count)-remainder;
-                    // Debug.Log(temp2.count);
-
-                    // Debug.Log(remainder);
-
+                    
+                    if(stack_item.count+stack_olditem.count>(int)stack_olditem.stacking)
+                        remainder=(stack_olditem.count+stack_item.count)%(int)stack_olditem.stacking;
+                    stack_olditem.count=(stack_olditem.count+  stack_item.count)-remainder;
+                    stack_item.count = remainder;
                     if(remainder>0)
                     {
-                        Item.Data newitem=null;
-                        if(item is Item.Consumable)
+                        Item.Data newitem= item;
+                        Debug.Log(newitem.GetType());
+                        newitem.assignUID(Items.Count.ToString("0000"));
+                        Items.Add(newitem);
+                        #region manualassignment
+                        /*
+                        if (item is Item.Consumable)
                         {
-                            
-                            newitem=new Item.Consumable(item as Item.Consumable);
-                            newitem.assignUID(Items.Count.ToString("0000"));
-                            Items.Add(newitem);
+                            //newitem=new Item.Consumable(item as Item.Consumable);
                         }
+                        */
+                        #endregion
                     }
                 }
                 else
                 {
-                    Item.Data newitem=null;
-                    if(item is Item.Consumable)
-                    {
-                        newitem=new Item.Consumable(item as Item.Consumable);
-                        newitem.assignUID(Items.Count.ToString("0000"));
-                        Items.Add(newitem);
-                    }
-
+                    Item.Data newitem= item;
+                    Debug.Log(newitem.GetType());
+                    newitem.assignUID(Items.Count.ToString("0000"));
+                    Items.Add(newitem);
+                    #region manualassignment
+                    /*    if (item is Item.Consumable)
+                        {
+                            //newitem=new Item.Consumable(item as Item.Consumable
+                        }
+                    */
+                    #endregion
                 }
             },
             ()=>{
@@ -95,19 +94,26 @@ public class Inventory :MonoBehaviour
                 onAdd(item.RID);
 
                 Item.Data newitem=null;
-                    if(item is Item.Consumable)
+                newitem = item;
+                Debug.Log(newitem.GetType());
+                newitem.assignUID(Items.Count.ToString("0000"));
+                Items.Add(newitem);
+
+                #region manualassingment
+                /*
+                if (item is Item.Consumable)
                     {
-                        newitem=new Item.Consumable(item as Item.Consumable);
-                        newitem.assignUID(Items.Count.ToString("0000"));
-                        Items.Add(newitem);
+                    //    newitem=new Item.Consumable(item as Item.Consumable);
+                       
                     }
                     if(!(item is Item.Consumable))
                     {
                         Debug.LogError("Add code for other Item.data types as well");
                     }
+                */
+                #endregion
             }
         );
-        // 
     }
     public void RemoveFromInventory(Item.Data item,int count=1,System.Action<string,int,Vector3> onRemove=null)
     {
@@ -121,7 +127,6 @@ public class Inventory :MonoBehaviour
                         return true;
                     }
                     return false;
-                    // Debug.LogError("DEFINE EVALUATOR FOR REMOVE");
                 }
                 return false;
              }
@@ -134,20 +139,20 @@ public class Inventory :MonoBehaviour
                }
                 else
                 {
-                    Item.Stackable temp=olditem as Item.Stackable;
-                    if(count<=(int)temp.stacking)
+                    Item.Stackable stack_olditem=olditem as Item.Stackable;
+                    if(count<=(int)stack_olditem.stacking)
                     {
-                        if(temp.count-count>0)
+                        if(stack_olditem.count-count>0)
                         {
-                            temp.count-=count;
+                            stack_olditem.count-=count;
 
-                            Debug.Log(temp.count);
-                            onRemove(temp.RID,count,transform.position);  
+                            Debug.Log(stack_olditem.count);
+                            onRemove(stack_olditem.RID,count,transform.position);  
                             return;
                         }
                         
-                        onRemove(temp.RID,count,transform.position);  
-                        Items.Remove(temp);
+                        onRemove(stack_olditem.RID,count,transform.position);  
+                        Items.Remove(stack_olditem);
                     }
 
                 }

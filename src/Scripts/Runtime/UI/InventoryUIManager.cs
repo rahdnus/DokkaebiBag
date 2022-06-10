@@ -38,7 +38,6 @@ public class InventoryUIManager : MonoBehaviour
     {
         if(loadedAssetRID.Contains(RID))
             return;
-
         loadedAssetRID.Add(RID);
         GetAsset(RID).objectreference.LoadAssetAsync();
         GetAsset(RID).spritereference.LoadAssetAsync();
